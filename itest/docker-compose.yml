@@ -1,0 +1,10 @@
+version: '2'
+services:
+
+  duplicity:
+    build: ../Dockerfile.ubuntu
+    volumes:
+      - duplicity-test-data:/data
+      - duplicity-test-backups:/backups
+    environment:
+      FOO: bar
