@@ -7,10 +7,20 @@ RUN apt-get update \
         && add-apt-repository ppa:duplicity-team/ppa \
         && apt-get update \
         && apt-get install -y --no-install-recommends \
-        duplicity python-setuptools ncftp \
-        python-swiftclient python-pip python-pexpect openssh-client \
-        && pip install boto \
-        && apt-get autoremove -y python-pip \
+        duplicity python-setuptools python-pexpect openssh-client \
+        lftp \
+        ncftp \
+        python-cloudfiles \
+        python-gdata \
+        python-oauthlib \
+        python-paramiko \
+        python-swiftclient \
+        python-urllib3 \
+        rsync \
+        tahoe-lafs \
+        python-pip \
+        && pip install -U boto \
+        && apt-get remove -y python-pip python-pip-whl \
         && apt-get clean \
         && rm -rf /var/apt/lists/*
 

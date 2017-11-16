@@ -4,8 +4,21 @@ MAINTAINER ViViDboarder <vividboarder@gmail.com>
 RUN [ "cross-build-start" ]
 
 RUN apt-get update \
-        && apt-get install -y --no-install-recommends duplicity python-setuptools \
-        ncftp cron python-boto python-swiftclient python-pexpect openssh-client \
+        && apt-get install -y --no-install-recommends \
+        duplicity python-setuptools cron python-pexpect openssh-client \
+        lftp \
+        ncftp \
+        python-cloudfiles \
+        python-gdata \
+        python-oauthlib \
+        python-paramiko \
+        python-swiftclient \
+        python-urllib3 \
+        rsync \
+        tahoe-lafs \
+        python-pip \
+        && pip install -U boto  \
+        && apt-get remove -y python-pip python-pip-whl \
         && rm -rf /var/apt/lists/*
 
 RUN [ "cross-build-end" ]
