@@ -1,0 +1,15 @@
+# List of known backend dependencies from
+# https://bazaar.launchpad.net/~duplicity-team/duplicity/0.8-series/view/head:/requirements.txt
+azure
+b2
+boto>=2.7.0
+dropbox==6.9.0
+gdata
+jottalib
+mediafire
+paramiko
+pydrive
+pyrax
+python-cloudfiles
+python-swiftclient
+requests_oauthlib

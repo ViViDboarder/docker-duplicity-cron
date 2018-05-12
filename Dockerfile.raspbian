@@ -3,24 +3,26 @@ MAINTAINER ViViDboarder <vividboarder@gmail.com>
 
 RUN [ "cross-build-start" ]
 
+COPY ./requirements-backend.txt /
 RUN apt-get update \
         && apt-get install -y --no-install-recommends \
+            build-essential \
             cron \
             duplicity \
             lftp \
             ncftp \
             openssh-client \
-            python-cloudfiles \
-            python-gdata \
-            python-oauthlib \
+            python-dev \
             python-paramiko \
             python-pexpect \
             python-pip \
             python-setuptools \
+            python-swiftclient \
             python-urllib3 \
+            python-wheel \
             rsync \
             tahoe-lafs \
-        && pip install -U boto b2 \
+        && pip install -r /requirements-backend.txt \
         && apt-get remove -y python-pip \
         && apt-get install -y --no-install-recommends \
             python-swiftclient \

@@ -1,29 +1,35 @@
 FROM ubuntu:xenial
 MAINTAINER ViViDboarder <vividboarder@gmail.com>
 
+COPY ./requirements-backend.txt /
 RUN apt-get update \
         && apt-get install -y --no-install-recommends \
             software-properties-common python-software-properties \
         && add-apt-repository ppa:duplicity-team/ppa \
         && apt-get update \
+;
+RUN echo y \
         && apt-get install -y --no-install-recommends \
+            build-essential \
             cron \
             duplicity \
             lftp \
+            librsync-dev \
             ncftp \
             openssh-client \
-            python-cloudfiles \
-            python-gdata \
-            python-oauthlib \
+            python-dev \
             python-paramiko \
-            python-pexpect \
+            python-pycryptopp \
             python-pip \
             python-setuptools \
             python-swiftclient \
             python-urllib3 \
+            python-wheel \
             rsync \
             tahoe-lafs \
-        && pip install -U boto b2 \
+;
+RUN echo y \
+        && pip install -U -r /requirements-backend.txt \
         && apt-get autoremove -y python-pip \
         && apt-get clean \
         && rm -rf /var/apt/lists/*
