@@ -43,9 +43,9 @@ ENV CRON_SCHEDULE=""
 ENV FULL_CRON_SCHEDULE=""
 ENV VERIFY_CRON_SCHEDULE=""
 
-ADD backup.sh /
-ADD restore.sh /
-ADD start.sh /
-ADD verify.sh /
+ADD scripts/backup.sh /
+ADD scripts/restore.sh /
+ADD scripts/start.sh /
+ADD scripts/verify.sh /
 
 CMD [ "/start.sh" ]
