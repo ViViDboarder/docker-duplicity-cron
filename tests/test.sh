@@ -22,10 +22,10 @@ else
     mkdir -p /data && echo Test > /data/test.txt
 
     echo "Making backup..."
-    /cron-exec.sh /backup.sh
+    /cron-exec.sh /backup.sh || { cat /cron.log && exit 1; }
 
     echo "Verify backup..."
-    /cron-exec.sh /verify.sh
+    /cron-exec.sh /verify.sh || { cat /cron.log && exit 1; }
 
     echo "Delete test data..."
     rm -fr /data/*
@@ -34,15 +34,15 @@ else
     test -f /data/test.txt && exit 1 || echo "Gone"
 
     echo "Restore backup..."
-    /cron-exec.sh /restore.sh
-    /healthcheck.sh
+    /cron-exec.sh /restore.sh || { cat /cron.log && exit 1; }
+    /healthcheck.sh || { cat /cron.log && exit 1; }
 
     echo "Verify restore..."
     test -f /data/test.txt
     cat /data/test.txt
 
     echo "Verify backup..."
-    /verify.sh
+    /cron-exec.sh /verify.sh || { cat /cron.log && exit 1; }
 
     echo "Delete test data again..."
     rm -fr /data/*
@@ -51,8 +51,8 @@ else
     test -f /data/test.txt && exit 1 || echo "Gone"
 
     echo "Simulate a restart with RESTORE_ON_EMPTY_START..."
-    RESTORE_ON_EMPTY_START=true /start.sh
-    /healthcheck.sh
+    RESTORE_ON_EMPTY_START=true /start.sh || { cat /cron.log && exit 1; }
+    /healthcheck.sh || { cat /cron.log && exit 1; }
 
     echo "Verify restore happened..."
     test -f /data/test.txt
