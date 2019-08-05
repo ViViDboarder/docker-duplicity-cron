@@ -8,11 +8,11 @@ test: test-x86
 
 .PHONY: build-x86
 build-x86:
-	docker build -f ./Dockerfile.ubuntu -t $(DOCKER_TAG):ubuntu .
+	docker build -f ./Dockerfile -t $(DOCKER_TAG):ubuntu .
 
 .PHONY: build-arm
 build-arm:
-	docker build -f ./Dockerfile.raspbian -t $(DOCKER_TAG):raspbian .
+	docker build -f ./Dockerfile.armhf -t $(DOCKER_TAG):raspbian .
 
 .PHONY: build-all
 build-all: build-x86 build-arm
