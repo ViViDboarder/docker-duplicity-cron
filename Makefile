@@ -32,11 +32,11 @@ test-all: test-x86 test-arm
 
 .PHONY: test-s3-x86
 test-s3-x86:
-	cd tests && ./test-s3.sh ubuntu
+	cd tests && ./test-s3.sh Dockerfile
 
 .PHONY: test-s3-arm
 test-s3-arm:
-	cd tests && ./test-s3.sh raspbian
+	cd tests && ./test-s3.sh Dockerfile.armhf
 
 .PHONY: test-s3-all
 test-s3-all: test-s3-x86 test-s3-arm
