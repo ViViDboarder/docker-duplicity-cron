@@ -51,6 +51,3 @@ Mount all volumes from your existing container with `--volumes-from` and then ba
 
 ### Restoring a backup
 On your running container, execute `/restore.sh`. That should be that! Eg. `docker exec my_backup_container /restore.sh`
-
-### To Do
- - [ ] Automatic restoration if there is no source data
