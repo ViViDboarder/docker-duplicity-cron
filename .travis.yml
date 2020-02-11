@@ -3,6 +3,8 @@ sudo: required
 services: docker
 
 before_script:
+  - sudo apt-get update
+  - sudo apt-get -y install qemu qemu-user-static qemu-user binfmt-support
   - docker run --rm --privileged multiarch/qemu-user-static:register --reset
   - docker run --rm -t multiarch/ubuntu-debootstrap:arm64-bionic uname -a
   - docker run --rm -t multiarch/ubuntu-debootstrap:armhf-bionic uname -a
