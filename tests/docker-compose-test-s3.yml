@@ -1,9 +1,13 @@
+---
 version: '2'
 services:
   duplicity:
-    build:
-      context: ..
-      dockerfile: ${DOCKERFILE}
+    image: "$DOCKER_IMAGE"
+    # build:
+    #   context: ..
+    #   dockerfile: Dockerfile
+    #   args:
+    #     REPO: "${BUILD_ARG_REPO}"
     entrypoint: "bash"
     command: ["/test.sh"]
     hostname: itest

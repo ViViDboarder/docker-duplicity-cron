@@ -1,7 +1,10 @@
+---
 sudo: required
 services: docker
 
 script:
-  # - make build-all
-  - make test-x86
+  - docker run --rm --privileged multiarch/qemu-user-static:register --reset
+  - make build-all
+  - make test-all
+  # test-s3-arm has issues, but the image works in the wild
   - make test-s3-x86

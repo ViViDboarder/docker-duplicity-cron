@@ -1,5 +1,6 @@
-FROM ubuntu:xenial
-MAINTAINER ViViDboarder <vividboarder@gmail.com>
+ARG REPO=library
+FROM ${REPO}/ubuntu:xenial
+LABEL maintainer="ViViDboarder <vividboarder@gmail.com>"
 
 RUN apt-get update \
         && apt-get install -y --no-install-recommends \
@@ -23,8 +24,8 @@ RUN apt-get update \
             python-urllib3 \
             rsync \
             tahoe-lafs \
-        && pip install -U --no-cache-dir boto b2 \
-        && apt-get autoremove -y python-pip \
+        && pip install -U --no-cache-dir boto==2.49.0 b2==1.4.2 \
+        && apt-get autoremove -y python-pip python-setuptools \
         && apt-get clean \
         && rm -rf /var/apt/lists/*
 

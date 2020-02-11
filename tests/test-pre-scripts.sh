@@ -1,7 +1,7 @@
 #! /bin/bash
 set -e
 
-image=$1
+image="$1"
 
 if [ "$IN_CONTAINER" != "true" ] ; then
     # Run the test script within the container
@@ -10,7 +10,7 @@ if [ "$IN_CONTAINER" != "true" ] ; then
         -e SKIP_ON_START=true \
         -v "$(pwd)/test-pre-scripts.sh:/test.sh" \
         -v "$(pwd)/test-pre-scripts:/scripts" \
-        $image \
+        "$image" \
         bash -c "/test.sh"
 else
     echo "Performing backup tests"
