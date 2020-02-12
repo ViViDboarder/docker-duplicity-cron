@@ -2,6 +2,9 @@ ARG REPO=library
 FROM ${REPO}/ubuntu:xenial
 LABEL maintainer="ViViDboarder <vividboarder@gmail.com>"
 
+# Allow building/running non-amd64 images from amd64
+COPY --from=multiarch/qemu-user-static:4.1.0-1 /usr/bin/qemu-* /usr/bin/
+
 RUN apt-get update \
         && apt-get install -y --no-install-recommends \
             software-properties-common python-software-properties \
