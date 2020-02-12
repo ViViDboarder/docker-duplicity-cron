@@ -2,5 +2,8 @@
 sudo: required
 services: docker
 
+before_script:
+  - docker run --rm --privileged multiarch/qemu-user-static:register --reset
+
 script:
   - make all
