@@ -1,5 +1,5 @@
 ARG REPO=library
-FROM ${REPO}/ubuntu:bionic
+FROM ${REPO}/ubuntu:xenial
 LABEL maintainer="ViViDboarder <vividboarder@gmail.com>"
 
 # Allow building/running non-amd64 images from amd64
