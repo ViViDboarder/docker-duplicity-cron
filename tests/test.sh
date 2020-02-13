@@ -12,6 +12,9 @@ if [ "$IN_CONTAINER" != "true" ] ; then
         "$image" \
         bash -c "/test.sh"
 else
+    # Optionally sleep at beginning for compose tests that may need it
+    sleep "${SLEEP:-0}"
+
     echo "Performing backup tests"
 
     echo "Verify cron and crontab exist"

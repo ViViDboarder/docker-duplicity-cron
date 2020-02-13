@@ -3,11 +3,6 @@ version: '2'
 services:
   duplicity:
     image: "$DOCKER_IMAGE"
-    # build:
-    #   context: ..
-    #   dockerfile: Dockerfile
-    #   args:
-    #     REPO: "${BUILD_ARG_REPO}"
     entrypoint: "bash"
     command: ["/test.sh"]
     hostname: itest
@@ -19,10 +14,9 @@ services:
       AWS_DEFAULT_REGION: us-east-1
       AWS_ACCESS_KEY_ID: SUPER_SECRET_ACCESS_KEY
       AWS_SECRET_ACCESS_KEY: SUPER_SECRET_SECRET_KEY
+      SLEEP: 2
     volumes:
       - "./test.sh:/test.sh"
-    links:
-      - minio
   minio:
     image: minio/minio
     command: server /data

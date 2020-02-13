@@ -35,22 +35,22 @@ test-all: test-amd64 test-arm
 
 .PHONY: test-s3-amd64
 test-s3-amd64: build-amd64
-	cd tests && ./test-s3.sh $(DOCKER_TAG):amd64
+	cd tests && ./test-compose.sh s3 $(DOCKER_TAG):amd64
 
 .PHONY: test-s3-arm
 test-s3-arm: build-arm
-	cd tests && ./test-s3.sh $(DOCKER_TAG):arm
+	cd tests && ./test-compose.sh s3 $(DOCKER_TAG):arm
 
 .PHONY: test-s3-all
 test-s3-all: test-s3-amd64 test-s3-arm
 
 .PHONY: shell-amd64
 shell-amd64: build-amd64
-	docker run --rm -it $(DOCKER_TAG):ubuntu bash
+	docker run --rm -it $(DOCKER_TAG):amd64 bash
 
 .PHONY: shell-arm
 shell-arm: build-arm
-	docker run --rm -it $(DOCKER_TAG):raspbian bash
+	docker run --rm -it $(DOCKER_TAG):arm bash
 
 .PHONY: shell
 shell: shell-amd64

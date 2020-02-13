@@ -1,34 +1,28 @@
 ARG REPO=library
-FROM ${REPO}/ubuntu:xenial
+FROM multiarch/qemu-user-static:4.1.0-1 AS qemu
+FROM ${REPO}/ubuntu:eoan
 LABEL maintainer="ViViDboarder <vividboarder@gmail.com>"
 
 # Allow building/running non-amd64 images from amd64
-COPY --from=multiarch/qemu-user-static:4.1.0-1 /usr/bin/qemu-* /usr/bin/
+COPY --from=qemu /usr/bin/qemu-* /usr/bin/
 
 RUN apt-get update \
         && apt-get install -y --no-install-recommends \
-            software-properties-common python-software-properties \
-        && add-apt-repository ppa:duplicity-team/ppa \
-        && apt-get update \
-        && apt-get install -y --no-install-recommends \
             cron \
             duplicity \
+            # duplicity recommended
+            python3-oauthlib \
+            python3-paramiko \
+            python3-pexpect \
+            python3-urllib3 \
+            rsync \
+            # duplicity suggests
             lftp \
             ncftp \
-            openssh-client \
-            python-cloudfiles \
-            python-gdata \
-            python-oauthlib \
-            python-paramiko \
-            python-pexpect \
-            python-pip \
-            python-setuptools \
-            python-swiftclient \
-            python-urllib3 \
-            rsync \
-            tahoe-lafs \
-        && pip install -U --no-cache-dir boto==2.49.0 b2==1.4.2 \
-        && apt-get autoremove -y python-pip python-setuptools \
+            par2 \
+            python3-boto \
+            python3-swiftclient \
+            # tahoe-lafs \ # This depends on Python 2 and is left out for now
         && apt-get clean \
         && rm -rf /var/apt/lists/*
 
