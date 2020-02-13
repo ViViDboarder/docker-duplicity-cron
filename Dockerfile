@@ -2,27 +2,31 @@ ARG REPO=library
 FROM multiarch/qemu-user-static:4.1.0-1 AS qemu
 FROM ${REPO}/ubuntu:eoan
 LABEL maintainer="ViViDboarder <vividboarder@gmail.com>"
+LABEL duplicity-version=0.8.04
 
 # Allow building/running non-amd64 images from amd64
 COPY --from=qemu /usr/bin/qemu-* /usr/bin/
 
 RUN apt-get update \
         && apt-get install -y --no-install-recommends \
-            cron \
-            duplicity \
+            cron=3.0pl1-134ubuntu1 \
+            duplicity=0.8.04-2ubuntu1 \
             # duplicity recommended
-            python3-oauthlib \
-            python3-paramiko \
-            python3-pexpect \
-            python3-urllib3 \
-            rsync \
+            python3-oauthlib=2.1.0-1 \
+            python3-paramiko=2.6.0-1 \
+            python3-pexpect=4.6.0-1 \
+            python3-urllib3=1.24.1-1ubuntu1 \
+            rsync=3.1.3-6 \
             # duplicity suggests
-            lftp \
-            ncftp \
-            par2 \
-            python3-boto \
-            python3-swiftclient \
+            lftp=4.8.4-2build2 \
+            ncftp=2:3.2.5-2.1 \
+            par2=0.8.0-1 \
+            python3-boto=2.49.0-2ubuntu1 \
+            python3-swiftclient=1:3.8.1-0ubuntu1 \
+            python3-pip=18.1-5 \
             # tahoe-lafs \ # This depends on Python 2 and is left out for now
+        && pip3 install --no-cache-dir b2==1.4.2 \
+        && apt-get autoremove -y python3-pip \
         && apt-get clean \
         && rm -rf /var/apt/lists/*
 
