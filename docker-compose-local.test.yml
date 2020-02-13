@@ -1,0 +1,16 @@
+---
+version: '3'
+services:
+  sut:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        REPO: "${REPO:-library}"
+    entrypoint: "bash"
+    command: ["/test.sh"]
+    volumes:
+      - "./tests/test.sh:/test.sh"
+    environment:
+      - IN_CONTAINER=true
+      - SKIP_ON_START=true
