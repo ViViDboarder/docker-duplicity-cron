@@ -5,7 +5,6 @@ services:
     image: "$DOCKER_IMAGE"
     entrypoint: "bash"
     command: ["/test.sh"]
-    hostname: itest
     environment:
       IN_CONTAINER: 'true'
       SKIP_ON_START: 'true'
@@ -20,7 +19,6 @@ services:
   minio:
     image: minio/minio
     command: server /data
-    hostname: minio
     expose:
       - "9000"
     environment:
