@@ -1,5 +1,11 @@
 #! /bin/bash
 
+echo "!!!!!!!!!!!!!!!!!!!!!!!!! DEPRECATION NOTICE !!!!!!!!!!!!!!!!!!!!!!!!!"
+echo "The ubuntu and raspbian tags are now deprecated. The latest tag now "
+echo "is based on Ubuntu eoan supports multiple architechtures. Please use "
+echo "that instead."
+echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+
 # If first arg is bash, we'll just execute directly
 if [ "$1" == "bash" ]; then
     exec "$@"
