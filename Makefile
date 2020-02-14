@@ -9,6 +9,10 @@ all: build-all test-all test-s3-all
 .PHONY: test
 test: test-amd64
 
+.PHONY: check
+check:
+	pre-commit run --all-files
+
 .PHONY: build-amd64
 build-amd64:
 	docker build --build-arg REPO=library -f ./Dockerfile -t $(DOCKER_TAG):amd64 .

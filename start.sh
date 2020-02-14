@@ -1,23 +1,24 @@
 #! /bin/bash
+set -euf
 
 # If first arg is bash, we'll just execute directly
-if [ "$1" == "bash" ]; then
+if [ $# -gt 0 ] && [ "$1" == "bash" ]; then
     exec "$@"
     exit 0
 fi
 
 # If no env variable set, get from command line
 if [ "$OPT_ARGUMENTS" == "" ]; then
-    export OPT_ARGUMENTS="$@"
+    export OPT_ARGUMENTS="$*"
 fi
 
 # If key id is provied add arg
-if [ -e "$GPG_KEY_ID" ]; then
+if [ -n "$GPG_KEY_ID" ]; then
     export OPT_ARGUMENTS="$OPT_ARGUMENTS --encrypt-sign-key=\"$GPG_KEY_ID\""
 fi
 
 # If set to restore on start, restore if the data volume is empty
-if [ "$RESTORE_ON_EMPTY_START" == "true" -a -z "$(ls -A $PATH_TO_BACKUP)" ]; then
+if [ "$RESTORE_ON_EMPTY_START" == "true" ] && [ -z "$(ls -A "$PATH_TO_BACKUP")" ]; then
     /cron-exec.sh /restore.sh
 fi
 

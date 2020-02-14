@@ -1,10 +1,10 @@
 #! /bin/bash
-set -e
+set -euf
 
-image="$1"
 
-if [ "$IN_CONTAINER" != "true" ] ; then
+if [ -z "${IN_CONTAINER+x}" ] ; then
     # Run the test script within the container
+    image="$1"
     docker run --rm \
         -e IN_CONTAINER=true \
         -e SKIP_ON_START=true \
@@ -31,7 +31,7 @@ else
     /cron-exec.sh /verify.sh || { cat /cron.log && exit 1; }
 
     echo "Delete test data..."
-    rm -fr /data/*
+    rm -fr /data/test.txt
 
     echo "Verify deleted..."
     test -f /data/test.txt && exit 1 || echo "Gone"
@@ -48,7 +48,7 @@ else
     /cron-exec.sh /verify.sh || { cat /cron.log && exit 1; }
 
     echo "Delete test data again..."
-    rm -fr /data/*
+    rm -fr /data/test.txt
 
     echo "Verify deleted..."
     test -f /data/test.txt && exit 1 || echo "Gone"
