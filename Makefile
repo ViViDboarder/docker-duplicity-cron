@@ -38,11 +38,13 @@ test-arm: build-arm
 test-all: test-amd64 test-arm
 
 .PHONY: test-s3-amd64
-test-s3-amd64: build-amd64 clean-minio
+test-s3-amd64: build-amd64
+	$(MAKE) clean-minio
 	cd tests && ./test-compose.sh s3 $(DOCKER_TAG):amd64
 
 .PHONY: test-s3-arm
-test-s3-arm: build-arm clean-minio
+test-s3-arm: build-arm
+	$(MAKE) clean-minio
 	cd tests && ./test-compose.sh s3 $(DOCKER_TAG):arm
 
 .PHONY: test-s3-all
