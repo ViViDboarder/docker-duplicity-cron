@@ -34,11 +34,11 @@ test-arm: build-arm
 test-all: test-amd64 test-arm
 
 .PHONY: test-s3-amd64
-test-s3-amd64: build-amd64
+test-s3-amd64: build-amd64 clean-minio
 	cd tests && ./test-compose.sh s3 $(DOCKER_TAG):amd64
 
 .PHONY: test-s3-arm
-test-s3-arm: build-arm
+test-s3-arm: build-arm clean-minio
 	cd tests && ./test-compose.sh s3 $(DOCKER_TAG):arm
 
 .PHONY: test-s3-all
@@ -55,6 +55,14 @@ shell-arm: build-arm
 .PHONY: shell
 shell: shell-amd64
 
+# Installs pre-commit hooks
+.PHONY: install-hooks
+install-hooks:
+	pre-commit install --install-hooks
+
 .PHONY: clean
-clean:
-	docker-compose -f docker-compose-test-s3.yml down -v
+clean: clean-minio
+
+.PHONY: clean-minio
+clean-minio:
+	docker-compose -f tests/docker-compose-test-s3.yml down -v
