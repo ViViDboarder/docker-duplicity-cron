@@ -55,3 +55,11 @@ shell: shell-x86
 .PHONY: clean
 clean:
 	docker-compose -f docker-compose-test-s3.yml down -v
+
+.PHONY: install-hooks
+install-hooks:
+	pre-commit install
+
+.PHONY: check
+check:
+	pre-commit run --all-files
